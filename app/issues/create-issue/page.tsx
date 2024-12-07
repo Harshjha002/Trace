@@ -1,52 +1,81 @@
-'use client'
-import { Button, Callout, TextField , Text} from '@radix-ui/themes';
-import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from 'react-hook-form';
-import SimpleMDE from "react-simplemde-editor";
+'use client';
+import ErrorMessage from '@/app/components/ErrorMessage';
+import { createIssueSchema } from '@/app/createIssueSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Callout, TextField } from '@radix-ui/themes';
 import axios from 'axios';
+import 'easymde/dist/easymde.min.css';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod'
-import { createIssueSchema } from '@/app/createIssueSchema';
-import {z} from 'zod'
+import { Controller, useForm } from 'react-hook-form';
+import SimpleMDE from 'react-simplemde-editor';
+import { z } from 'zod';
 
-type IssueForm =  z.infer<typeof createIssueSchema>
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const CreateNewIssuePage = () => {
-  const { register, control, handleSubmit , formState : {errors} } = useForm<IssueForm>({resolver:zodResolver(createIssueSchema)})
-  const [error, setError] = useState('')
-  const router = useRouter()
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
+  const [error, setError] = useState('');
+  const router = useRouter();
+
   return (
-    <div className='max-w-xl'>
-      {error && <Callout.Root color='red' className='mb-5'>
-        <Callout.Text>
-          {error}
-        </Callout.Text>
-      </Callout.Root>}
-      <form className='space-y-4' onSubmit={handleSubmit(async (data) => {
-        try {
-          await axios.post('/api/issues', data)
-          router.push("/issues")
+    <div className="max-w-xl mx-auto mt-8 p-6 bg-cream text-dark rounded-md shadow-lg space-y-6">
 
-        } catch (error) {
-          setError("An unexpected error occured")
-        }
+      {error && (
+        <Callout.Root color="red" className="mb-5">
+          <Callout.Text>{error}</Callout.Text>
+        </Callout.Root>
+      )}
+      <form
+        className="space-y-6"
+        onSubmit={handleSubmit(async (data) => {
+          try {
+            await axios.post('/api/issues', data);
+            router.push('/issues');
+          } catch (error) {
+            setError('An unexpected error occurred');
+          }
+        })}
+      >
 
-      })}>
         <div>
-          <TextField.Root placeholder="Enter Your Issue Title" {...register('title')} />
-          {errors.title && <Text color='red' as='p'>{errors.title.message}</Text>}
-          <Controller
-            name='description'
-            control={control}
-            render={({ field }) => <SimpleMDE placeholder='Description'  {...field} />}
+          <TextField.Root
+            className="w-full bg-aqua border border-lavender text-dark rounded"
+            placeholder="Enter Your Issue Title"
+            {...register('title')}
           />
-          {errors.description && <Text color='red' as='p'>{errors.description.message}</Text>}
+          <ErrorMessage>{errors.title?.message}</ErrorMessage>
         </div>
-        <Button>Submit Your Issue</Button>
+
+
+        <div>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => (
+              <SimpleMDE
+                className="bg-cream border border-peach text-dark rounded"
+                placeholder="Description"
+                {...field}
+              />
+            )}
+          />
+          <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        </div>
+
+        <Button className="w-full bg-lavender hover:bg-peach text-white py-2 px-4 rounded">
+          Submit Your Issue
+        </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateNewIssuePage
+export default CreateNewIssuePage;
