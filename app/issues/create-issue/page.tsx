@@ -1,5 +1,6 @@
 'use client';
 import ErrorMessage from '@/app/components/ErrorMessage';
+import Spinner from '@/app/components/Spinner';
 import { createIssueSchema } from '@/app/createIssueSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Callout, TextField } from '@radix-ui/themes';
@@ -23,7 +24,18 @@ const CreateNewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState('');
+  const[isSubmitting , setIsSubmitting] = useState(false)
   const router = useRouter();
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true)
+      await axios.post('/api/issues', data);
+      router.push('/issues');
+    } catch (error) {
+      setIsSubmitting(false)
+      setError('An unexpected error occurred');
+    }
+  })
 
   return (
     <div className="max-w-xl mx-auto mt-8 p-6 bg-cream text-dark rounded-md shadow-lg space-y-6">
@@ -35,14 +47,7 @@ const CreateNewIssuePage = () => {
       )}
       <form
         className="space-y-6"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            await axios.post('/api/issues', data);
-            router.push('/issues');
-          } catch (error) {
-            setError('An unexpected error occurred');
-          }
-        })}
+        onSubmit={onSubmit}
       >
 
         <div>
@@ -70,8 +75,8 @@ const CreateNewIssuePage = () => {
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </div>
 
-        <Button className="w-full bg-lavender hover:bg-peach text-white py-2 px-4 rounded">
-          Submit Your Issue
+        <Button className="w-full bg-lavender hover:bg-peach text-white py-2 px-4 rounded"  disabled={isSubmitting}>
+          Submit Your Issue {isSubmitting && <Spinner/>}
         </Button>
       </form>
     </div>
