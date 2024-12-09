@@ -1,8 +1,8 @@
-import { IssueStatusBadge } from '@/app/components';
 import prisma from '@/prisma/client';
-import { Card, Flex, Heading, Text } from '@radix-ui/themes';
+import { Box, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
+import EditIssueButton from './EditIssueButton';
+import IssueDetails from './IssueDetails';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -18,15 +18,29 @@ const IssueDetailPage = async ({ params }: Props) => {
   if (!issue) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto mt-8 p-6 bg-[#F3ECB8] text-[#4A4A4A] rounded-lg shadow-lg">
-      <Heading className="text-[#4A4A4A] mb-4">{issue.title}</Heading>
-      <Flex gap="4" my="2" className="text-[#4A4A4A]">
-        <IssueStatusBadge status={issue.status} />
-        <Text>{issue.createdAt.toLocaleDateString()}</Text>
-      </Flex>
-      <Card className="p-4 bg-white border border-[#B590CA] rounded-lg shadow-sm">
-        <ReactMarkdown className="prose text-[#4A4A4A]">{issue.description}</ReactMarkdown>
-      </Card>
+    <div className="min-h-screen bg-gradient-to-b from-[#F3ECB8] to-[#A8D3DA] py-10 px-4">
+      <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        {/* Header Section */}
+        <header className="bg-[#B590CA] text-white p-6">
+          <h1 className="text-2xl font-bold">{issue.title}</h1>
+        </header>
+
+        {/* Main Content */}
+        <div className="p-6 space-y-8">
+          <Grid columns={{ initial: '1', md: '3' }} gap="6">
+            {/* Issue Details Section */}
+            <Box className="md:col-span-2 bg-[#F9F9F9] p-6 rounded-lg shadow-sm">
+              <IssueDetails issue={issue} />
+            </Box>
+
+            {/* Actions Section */}
+            <Box className="bg-[#F3F4F6] p-6 rounded-lg shadow-sm space-y-4">
+              <h2 className="text-xl font-semibold text-[#4A4A4A]">Actions</h2>
+              <EditIssueButton issueId={issue.id} />
+            </Box>
+          </Grid>
+        </div>
+      </div>
     </div>
   );
 };
