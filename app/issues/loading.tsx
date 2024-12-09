@@ -1,40 +1,42 @@
-import { Button, Flex, Link, Table,Text } from '@radix-ui/themes'
-import React from 'react'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import IssuesActions from './IssuesActions'
+import { Table } from '@radix-ui/themes'
+import {Skeleton} from '@/app/components'
 
 const LoadingIssuePage = () => {
     const issues = [1,2,3,4,5]
   return (
-    <div>
-       <IssuesActions/>
-      {/* Issues Table */}
+    <div className="space-y-8 p-8 bg-gradient-to-b from-[#A8D3DA] to-[#F3ECB8] rounded-2xl shadow-xl border border-gray-300">
+      <Skeleton/>
       {issues.length > 0 ? (
-        <Table.Root className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <Table.Header className="bg-purple-100">
+        <Table.Root className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+          <Table.Header className="bg-[#B590CA] text-white">
             <Table.Row>
-              <Table.ColumnHeaderCell className="py-3 px-4">Issue</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell py-3 px-4">Status</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell py-3 px-4">Created At</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="py-4 px-6 text-left font-semibold">
+                Issue
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell py-4 px-6 text-left font-semibold">
+                Status
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell py-4 px-6 text-left font-semibold">
+                Created At
+              </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {issues.map((issue) => (
               <Table.Row
                 key={issue}
-                className="hover:bg-purple-50 transition-colors duration-200"
+                className="hover:bg-[#F5CAB3] transition-all duration-150"
               >
-                <Table.Cell className="py-3 px-4 font-medium text-purple-900">
+                <Table.Cell className="py-4 px-6 font-medium text-gray-900">
                 <Skeleton/>
-                  <div className="block md:hidden text-gray-600 text-sm">
-                    <Skeleton/>
+                  <div className="block md:hidden mt-1 text-sm text-gray-600">
+                  <Skeleton/>
                   </div>
                 </Table.Cell>
-                <Table.Cell className="hidden md:table-cell py-3 px-4 text-gray-700">
+                <Table.Cell className="hidden md:table-cell py-4 px-6 text-gray-700">
                 <Skeleton/>
                 </Table.Cell>
-                <Table.Cell className="hidden md:table-cell py-3 px-4 text-gray-500">
+                <Table.Cell className="hidden md:table-cell py-4 px-6 text-gray-500">
                 <Skeleton/>
                 </Table.Cell>
               </Table.Row>
@@ -42,9 +44,9 @@ const LoadingIssuePage = () => {
           </Table.Body>
         </Table.Root>
       ) : (
-        <Text className="text-gray-600 text-center">
-          No issues found. Start by creating a new issue!
-        </Text>
+        <div className="text-center py-8">
+         <Skeleton/>
+        </div>
       )}
     </div>
   )

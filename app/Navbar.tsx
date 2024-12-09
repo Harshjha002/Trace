@@ -13,11 +13,11 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex items-center justify-between h-14 border-b mb-5 px-5">
+    <nav className="flex items-center justify-between h-16 border-b-2 border-[#B590CA] bg-gradient-to-b from-[#A8D3DA] to-[#F3ECB8] px-6 shadow-md">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2">
-        <FaBug size={20} />
-        <h1 className="font-black text-blue-400 text-[20px]">Trace</h1>
+      <Link href="/" className="flex items-center gap-2 text-[#4A4A4A] hover:text-[#B590CA] transition-colors duration-200">
+        <FaBug size={24} />
+        <h1 className="font-black text-[22px]">Trace</h1>
       </Link>
 
       {/* Navigation Links */}
@@ -26,8 +26,10 @@ const Navbar = () => {
           <li key={href}>
             <Link
               href={href}
-              className={`text-mist hover:text-yellow-500 hover:border-b-2 ${
-                pathname === href ? 'text-yellow-500 border-b-2' : ''
+              className={`px-3 py-1 text-lg font-medium text-[#4A4A4A] rounded-md transition-all duration-200 ${
+                pathname === href
+                  ? 'text-[#B590CA] bg-[#F5CAB3]'
+                  : 'hover:text-[#B590CA] hover:bg-[#F5CAB3]'
               }`}
             >
               {label}
