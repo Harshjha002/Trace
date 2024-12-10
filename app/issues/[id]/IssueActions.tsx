@@ -9,7 +9,7 @@ const IssueActions = ({issueId} : {issueId:number}) => {
     <Heading>Actions</Heading>
         <Button>
           <Pencil2Icon/>
-          <Link href = {`/issues.${issueId}/edit`}>Edit issue</Link>
+          <Link href = {`/issues/${issueId}/edit`}>Edit issue</Link>
         </Button>
     </>
   )
