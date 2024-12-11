@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import IssueFormForEdit from './clientDyanamicRoute';
 
-
+interface Props {
+    params: Promise<{ id: string }>;
+  }
+  
 const EditIssuePage = async ({ params }: Props) => {
     try {
       const { id } = await params;
@@ -30,9 +33,7 @@ const EditIssuePage = async ({ params }: Props) => {
     }
   };
 
-interface Props {
-  params: Promise<{ id: string }>;
-}
+
 
 
 export default EditIssuePage;

@@ -14,6 +14,7 @@ const EditIssuePage = async ({ params }: Props) => {
     if (!id || isNaN(parseInt(id, 10))) {
       throw new Error('Invalid issue ID');
     }
+
     const issue = await prisma.issue.findUnique({
       where: { id: parseInt(id, 10) },
     });
@@ -23,14 +24,20 @@ const EditIssuePage = async ({ params }: Props) => {
     }
 
     return (
-      <Grid columns={{ initial: '1', md: '2' }} gap="5" className="max-w-3xl mx-auto mt-8 p-6 bg-[#F3ECB8] text-[#4A4A4A] rounded-lg shadow-lg">
-        <Box>
-          <IssueDetails issue={issue} />
-        </Box>
-        <Box>
-          <IssueActions issueId={issue.id} />
-        </Box>
-      </Grid>
+      <div className="min-h-screen bg-cream text-[#1A1A19] flex items-center justify-center">
+        <Grid
+          columns={{ initial: '1', lg: '2' }}
+          gap="6"
+          className="w-full max-w-5xl p-8 rounded-lg shadow-2xl bg-lavender text-[#1A1A19]"
+        >
+          <Box className="p-6 border-r border-gray-300">
+            <IssueDetails issue={issue} />
+          </Box>
+          <Box className="p-6">
+            <IssueActions issueId={issue.id} />
+          </Box>
+        </Grid>
+      </div>
     );
   } catch (error) {
     console.error('Error loading issue:', error);
