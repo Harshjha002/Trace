@@ -1,17 +1,14 @@
-import { Pencil2Icon } from '@radix-ui/react-icons'
-import { Heading, Button } from '@radix-ui/themes'
-import Link from 'next/link'
+import { Flex } from '@radix-ui/themes'
 import React from 'react'
+import EditIssueButton from './EditIssueButton'
+import DeleteIssueButton from './DeleteIssueButton'
 
 const IssueActions = ({issueId} : {issueId:number}) => {
   return (
-    <>
-    <Heading>Actions</Heading>
-        <Button>
-          <Pencil2Icon/>
-          <Link href = {`/issues/${issueId}/edit`}>Edit issue</Link>
-        </Button>
-    </>
+      <Flex direction="column" gap="4">
+          <EditIssueButton issueId={issueId}/>
+          <DeleteIssueButton issueId={issueId}/>
+      </Flex>
   )
 }
 

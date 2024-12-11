@@ -13,7 +13,7 @@ const IssueDetails = ({issue} : {issue : Issue}) => {
         <IssueStatusBadge status={issue.status} />
         <Text>{issue.createdAt.toLocaleDateString()}</Text>
       </Flex>
-      <Card className="p-4 bg-white border border-[#B590CA] rounded-lg shadow-sm">
+      <Card className="p-4 bg-white border border-[#B590CA] rounded-lg shadow-sm max-w-full">
         <ReactMarkdown className="prose text-[#4A4A4A]">{issue.description}</ReactMarkdown>
       </Card>
     </>
