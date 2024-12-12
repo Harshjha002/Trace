@@ -3,6 +3,7 @@ import { Table, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import {IssueStatusBadge} from '@/app/components';
 import IssuesActions from './IssuesActions';
+import { Issue } from 'next/dist/build/swc/types';
 
 const IssuesPage = async () => {
   // Fetch issues from the database
@@ -29,7 +30,7 @@ const IssuesPage = async () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {issues.map((issue) => (
+            {issues.map((issue:any) => (
               <Table.Row
                 key={issue.id}
                 className="hover:bg-[#F5CAB3] transition-all duration-150"

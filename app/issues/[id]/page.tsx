@@ -24,13 +24,13 @@ const EditIssuePage = async ({ params }: Props) => {
     }
 
     return (
-      <div className="min-h-screen bg-cream text-[#1A1A19] flex items-center justify-center">
+      <div className="space-y-8 p-8 bg-gradient-to-b from-[#A8D3DA] to-[#F3ECB8] rounded-2xl shadow-xl border border-gray-300">
         <Grid
           columns={{ initial: '1', sm: '5' }}
           gap="6"
-          className="w-full max-w-5xl p-8 rounded-lg shadow-2xl bg-lavender text-[#1A1A19]"
-        >
-          <Box className="p-6 border-r border-gray-300 md:col-span-4">
+  
+          >
+          <Box className="p-6 border-r  border-[#B590CA] md:col-span-4 max-lg:border-none">
             <IssueDetails issue={issue} />
           </Box>
           <Box className="p-6">

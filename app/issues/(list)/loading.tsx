@@ -5,7 +5,7 @@ const LoadingIssuePage = () => {
     const issues = [1,2,3,4,5]
   return (
     <div className="space-y-8 p-8 bg-gradient-to-b from-[#A8D3DA] to-[#F3ECB8] rounded-2xl shadow-xl border border-gray-300">
-      <Skeleton/>
+      <Skeleton height='8rem'/>
       {issues.length > 0 ? (
         <Table.Root className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
           <Table.Header className="bg-[#B590CA] text-white">

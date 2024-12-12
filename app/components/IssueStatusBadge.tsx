@@ -1,5 +1,5 @@
 import { Status } from '@prisma/client'
-import { Badge } from '@radix-ui/themes'
+import { Badge , Text} from '@radix-ui/themes'
 import React from 'react'
 
 
@@ -12,9 +12,9 @@ CLOSED:{label:'Closed' , color:'green'},
 
 
 const IssueStatusBadge = ({status} : {status:Status}) => {
-  return (
-    <Badge color={statusMap[status].color}>
-      {statusMap[status].label}
+  return ( 
+    <Badge color={statusMap[status].color} className='rounded-md'>
+      <Text size="3" className='p-1'>{statusMap[status].label}</Text>
     </Badge>
   )
 }
