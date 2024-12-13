@@ -1,9 +1,16 @@
 import { issueSchema } from "@/app/createIssueSchema";
+import { auth } from "@/auth";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(request: NextRequest,
     { params }: { params: Promise<{ id: string }> }) {
+
+    const session = await auth();
+
+    if (!session) {
+        return NextResponse.json({}, { status: 401 })
+    }
 
     const { id } = await params;
 
@@ -32,6 +39,12 @@ export async function PATCH(request: NextRequest,
 
 export async function DELETE(request: NextRequest,
     { params }: { params: Promise<{ id: string }> }) {
+
+    const session = await auth();
+
+    if (!session) {
+        return NextResponse.json({}, { status: 401 })
+    }
 
     const { id } = await params;
     const issue = await prisma.issue.findUnique({
