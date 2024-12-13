@@ -3,13 +3,14 @@ import React from 'react'
 import EditIssueButton from './EditIssueButton'
 import DeleteIssueButton from './DeleteIssueButton'
 import AssigneeSelect from './AssigneeSelect'
+import { Issue } from '@prisma/client'
 
-const IssueActions = ({issueId} : {issueId:number}) => {
+const IssueActions = ({issue} : {issue:Issue}) => {
   return (
       <Flex direction="column" gap="4">
-          <AssigneeSelect/>
-          <EditIssueButton issueId={issueId}/>
-          <DeleteIssueButton issueId={issueId}/>
+          <AssigneeSelect issue={issue}/>
+          <EditIssueButton issueId={issue.id}/>
+          <DeleteIssueButton issueId={issue.id}/>
       </Flex>
   )
 }

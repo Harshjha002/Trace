@@ -38,7 +38,7 @@ const EditIssuePage = async ({ params }: Props) => {
           </Box>
           <Box className="p-6 ">
             {session?.user ?
-              (<IssueActions issueId={issue.id} />)
+              (<IssueActions issue={issue} />)
               : (<Flex direction="column" gap="3">
                 <Link
                   href={'/api/auth/signin'}
