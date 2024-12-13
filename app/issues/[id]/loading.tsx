@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Grid } from '@radix-ui/themes'
+import { Box,  Grid } from '@radix-ui/themes'
 import {Skeleton} from '@/app/components'
 
 const IssueDetailLoadingPage = () => {
@@ -14,8 +14,9 @@ const IssueDetailLoadingPage = () => {
           <Skeleton height="100rem"/>
           </Box>
           <Box className="p-6">
-            <Skeleton height="10"/>
-            <Skeleton height="10"/> 
+            <Skeleton height="15"/>
+            <Skeleton height="15"/> 
+            <Skeleton height="15"/> 
           </Box>
         </Grid>
       </div>
