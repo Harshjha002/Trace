@@ -19,7 +19,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
                 assignedToUserId: userId === "Unassigned" ? null : userId,
             }
             ).then(() => {
-                toast.success(`Issue ${userId === "Unassigned" ? 'Removed' : "Assigned"} Sucsessfully `)
+                toast.success(`Issue ${userId === "Unassigned" ? 'unassigned' : "Assigned"} Sucsessfully `)
             }).catch(() => {
                 toast.error("Changes could not be saved")
             })
