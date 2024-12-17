@@ -1,6 +1,7 @@
-import { Flex, Button, Text } from '@radix-ui/themes';
+import { Flex, Button, Text , Box } from '@radix-ui/themes';
 import Link from 'next/link';
 import React from 'react';
+import IssueStatusFilter from './IssueStatusFilter';
 
 const IssuesActions = () => {
   return (
@@ -17,6 +18,9 @@ const IssuesActions = () => {
       >
         Issues
       </Text>
+      <Box>
+        <Flex className='items-center content-center gap-4'>
+          <IssueStatusFilter/>
       <Button
         asChild
         size="3"
@@ -24,6 +28,8 @@ const IssuesActions = () => {
       >
         <Link href="/issues/create-issue">New Issue</Link>
       </Button>
+        </Flex>
+      </Box>
     </Flex>
   );
 };

@@ -1,19 +1,31 @@
 import prisma from '@/prisma/client';
 import { Table, Text } from '@radix-ui/themes';
 import Link from 'next/link';
-import {IssueStatusBadge} from '@/app/components';
+import { IssueStatusBadge } from '@/app/components';
 import IssuesActions from './IssuesActions';
-import { Issue } from 'next/dist/build/swc/types';
+import { Status } from '@prisma/client';
 
-const IssuesPage = async () => {
-  // Fetch issues from the database
-  const issues = await prisma.issue.findMany();
+interface Props{
+  searchParams?:Promise<{status?:Status}> 
+}
+
+const IssuesPage = async ({ searchParams } : Props) => {
+
+  const validStatuses = Object.values(Status);
+
+  const status = searchParams && validStatuses.includes((await searchParams).status as Status)
+  ? ((await searchParams).status as Status)
+  : undefined;
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status 
+    },
+  });
+
   return (
     <div className="space-y-8 p-8 bg-gradient-to-b from-[#A8D3DA] to-[#F3ECB8] rounded-2xl shadow-xl border border-gray-300">
-      {/* Header and Actions Section */}
       <IssuesActions />
-
-      {/* Issues Table */}
       {issues.length > 0 ? (
         <Table.Root className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
           <Table.Header className="bg-[#B590CA] text-white">
@@ -30,11 +42,8 @@ const IssuesPage = async () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {issues.map((issue:any) => (
-              <Table.Row
-                key={issue.id}
-                className="hover:bg-[#F5CAB3] transition-all duration-150"
-              >
+            {issues.map((issue) => (
+              <Table.Row key={issue.id} className="hover:bg-[#F5CAB3] transition-all duration-150">
                 <Table.Cell className="py-4 px-6 font-medium text-gray-900">
                   <Link
                     href={`/issues/${issue.id}`}
@@ -67,7 +76,7 @@ const IssuesPage = async () => {
   );
 };
 
-// export const dynamic = 'force-dynamic'
-export const revalidate = 0 
+// Ensure the page always fetches fresh data
+export const revalidate = 0;
 
 export default IssuesPage;
